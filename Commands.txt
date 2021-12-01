@@ -1,0 +1,31 @@
+kafka-topics.bat --zookeeper localhost:2181 --topic first_topic --create --partitions 3 --replication-factor 1
+
+kafka-topics --zookeeper localhost:2181 --list  
+
+kafka-topics --zookeeper localhost:2181 --topic first_topic --describe
+-------
+producing message
+
+kafka-console-producer.bat --broker-list localhost:9092 --topic first_topic
+kafka-console-producer.bat --broker-list localhost:9092 --topic first_topic --producer-property acks=all
+
+kafka-console-consumer.bat --bootstrap-server localhost:9092 --topic  first_topic --group koti
+<Above line can be executed in multiple consoles to have multiple consumers>
+--------
+consuming message
+
+kafka-console-consumer.bat --bootstrap-server localhost:9092 --topic  first_topic
+kafka-console-consumer.bat --bootstrap-server localhost:9092 --topic  first_topic --from-beginning
+-----
+kafka consumer groups
+kafka-consumer-groups.bat --bootstrap-server localhost:9092 --list
+
+kafka-consumer-groups.bat --bootstrap-server localhost:9092 --describe --group koti
+Consumer group 'koti' has no active members.
+
+TOPIC           PARTITION  CURRENT-OFFSET  LOG-END-OFFSET  LAG             CONSUMER-ID     HOST            CLIENT-ID
+first_topic     0          9               9               0               -               -               -
+first_topic     2          11              11              0               -               -               -
+first_topic     1          10              10              0               -               -               -
+
+
